@@ -15,6 +15,11 @@ public class DownloadService
 
     public IReadOnlyDictionary<string, string>? RequestHeaders { get; init; }
 
+    /// <summary>
+    /// "subscription-userinfo" header of the last string download made through HttpClient.
+    /// </summary>
+    public string? LastSubscriptionUserInfo { get; private set; }
+
     private static readonly string _tag = "DownloadService";
 
     /// <summary>
@@ -295,7 +300,14 @@ public class DownloadService
             timeoutCts.CancelAfter(webProxy is null ? Global.DirectFetch : Global.ProxyFetch);
             using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
 
-            return await client.GetStringAsync(url, linkedCts.Token);
+            using var response = await client.GetAsync(url, linkedCts.Token);
+            response.EnsureSuccessStatusCode();
+            if (response.Headers.TryGetValues(SubscriptionUsage.HeaderName, out var userInfo)
+                || response.Content.Headers.TryGetValues(SubscriptionUsage.HeaderName, out userInfo))
+            {
+                LastSubscriptionUserInfo = userInfo.FirstOrDefault();
+            }
+            return await response.Content.ReadAsStringAsync(linkedCts.Token);
         }
         catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
         {

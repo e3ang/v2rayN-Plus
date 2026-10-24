@@ -122,6 +122,10 @@
                         Width="*"
                         Binding="{Binding Url}"
                         Header="{x:Static resx:ResUI.LvUrl}" />
+                    <DataGridTextColumn
+                        Width="200"
+                        Binding="{Binding UsageText}"
+                        Header="{x:Static resx:ResUI.LvSubUsage}" />
                     <DataGridCheckBoxColumn
                         Width="100"
                         Binding="{Binding Enabled}"

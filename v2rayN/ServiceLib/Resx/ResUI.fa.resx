@@ -1857,4 +1857,37 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="PleaseFillUsername" xml:space="preserve">
     <value>لطفاً نام کاربری را وارد کنید.</value>
   </data>
+  <data name="TbSubExpired" xml:space="preserve">
+    <value>منقضی شده</value>
+  </data>
+  <data name="TbSubDaysLeft" xml:space="preserve">
+    <value>{0} روز مانده</value>
+  </data>
+  <data name="LvSubUsage" xml:space="preserve">
+    <value>مصرف / انقضا</value>
+  </data>
+  <data name="TbSendHwid" xml:space="preserve">
+    <value>ارسال شناسهٔ دستگاه (HWID) — برای پنل‌هایی که تعداد دستگاه را محدود می‌کنند</value>
+  </data>
+  <data name="TbSettingsAutoSwitch" xml:space="preserve">
+    <value>تعویض خودکار</value>
+  </data>
+  <data name="TbAutoSwitchEnable" xml:space="preserve">
+    <value>انتخاب خودکار سریع‌ترین سرور</value>
+  </data>
+  <data name="TbAutoSwitchInterval" xml:space="preserve">
+    <value>تست همهٔ سرورها هر (دقیقه)</value>
+  </data>
+  <data name="TbAutoSwitchThreshold" xml:space="preserve">
+    <value>فقط وقتی عوض شود که این قدر سریع‌تر باشد (٪)</value>
+  </data>
+  <data name="TbAutoSwitchCurrentSub" xml:space="preserve">
+    <value>فقط سرورهای اشتراک انتخاب‌شده</value>
+  </data>
+  <data name="TbAutoSwitchTip" xml:space="preserve">
+    <value>هر دقیقه سرور فعلی بررسی می‌شود؛ اگر جواب ندهد، همان لحظه همهٔ سرورها تست می‌شوند و سریع‌ترین سالم فعال می‌شود. در غیر این صورت تست کامل در فاصلهٔ بالا انجام می‌شود.</value>
+  </data>
+  <data name="MsgAutoSwitched" xml:space="preserve">
+    <value>خودکار به {0} ({1} میلی‌ثانیه) تغییر کرد</value>
+  </data>
 </root>

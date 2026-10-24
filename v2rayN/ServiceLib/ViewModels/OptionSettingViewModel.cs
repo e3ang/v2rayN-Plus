@@ -42,6 +42,14 @@ public partial class OptionSettingViewModel : MyReactiveObject, ICloseable
 
     [Reactive] public partial bool AutoRun { get; set; }
     [Reactive] public partial bool EnableStatistics { get; set; }
+
+    [Reactive] public partial bool AutoSwitchEnabled { get; set; }
+
+    [Reactive] public partial int AutoSwitchInterval { get; set; }
+
+    [Reactive] public partial int AutoSwitchThreshold { get; set; }
+
+    [Reactive] public partial bool AutoSwitchCurrentSub { get; set; }
     [Reactive] public partial bool KeepOlderDedupl { get; set; }
     [Reactive] public partial bool DisplayRealTimeSpeed { get; set; }
     [Reactive] public partial bool EnableAutoAdjustMainLvColWidth { get; set; }
@@ -176,6 +184,10 @@ public partial class OptionSettingViewModel : MyReactiveObject, ICloseable
 
         AutoRun = _config.GuiItem.AutoRun;
         EnableStatistics = _config.GuiItem.EnableStatistics;
+        AutoSwitchEnabled = _config.AutoSwitchItem.Enabled;
+        AutoSwitchInterval = _config.AutoSwitchItem.IntervalMinutes;
+        AutoSwitchThreshold = _config.AutoSwitchItem.ThresholdPercent;
+        AutoSwitchCurrentSub = _config.AutoSwitchItem.CurrentSubOnly;
         DisplayRealTimeSpeed = _config.GuiItem.DisplayRealTimeSpeed;
         KeepOlderDedupl = _config.GuiItem.KeepOlderDedupl;
         EnableAutoAdjustMainLvColWidth = _config.UiItem.EnableAutoAdjustMainLvColWidth;
@@ -355,6 +367,10 @@ public partial class OptionSettingViewModel : MyReactiveObject, ICloseable
 
         _config.GuiItem.AutoRun = AutoRun;
         _config.GuiItem.EnableStatistics = EnableStatistics;
+        _config.AutoSwitchItem.Enabled = AutoSwitchEnabled;
+        _config.AutoSwitchItem.IntervalMinutes = Math.Max(1, AutoSwitchInterval);
+        _config.AutoSwitchItem.ThresholdPercent = Math.Clamp(AutoSwitchThreshold, 0, 95);
+        _config.AutoSwitchItem.CurrentSubOnly = AutoSwitchCurrentSub;
         _config.GuiItem.DisplayRealTimeSpeed = DisplayRealTimeSpeed;
         _config.GuiItem.KeepOlderDedupl = KeepOlderDedupl;
         _config.UiItem.EnableAutoAdjustMainLvColWidth = EnableAutoAdjustMainLvColWidth;

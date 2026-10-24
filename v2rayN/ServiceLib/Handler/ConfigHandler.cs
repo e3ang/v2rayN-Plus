@@ -123,6 +123,7 @@ public static class ConfigHandler
         config.SimpleDNSItem.ParallelQuery ??= false;
         config.SimpleDNSItem.EnableHappyEyeballs ??= false;
 
+        config.AutoSwitchItem ??= new();
         config.SpeedTestItem ??= new();
         if (config.SpeedTestItem.SpeedTestTimeout < 10)
         {

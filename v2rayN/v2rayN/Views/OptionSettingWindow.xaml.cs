@@ -95,6 +95,10 @@ public partial class OptionSettingWindow
 
             this.Bind(ViewModel, vm => vm.AutoRun, v => v.togAutoRun.IsChecked).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.EnableStatistics, v => v.togEnableStatistics.IsChecked).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.AutoSwitchEnabled, v => v.togAutoSwitch.IsChecked).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.AutoSwitchInterval, v => v.txtAutoSwitchInterval.Text).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.AutoSwitchThreshold, v => v.txtAutoSwitchThreshold.Text).DisposeWith(disposables);
+            this.Bind(ViewModel, vm => vm.AutoSwitchCurrentSub, v => v.togAutoSwitchCurrentSub.IsChecked).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.DisplayRealTimeSpeed, v => v.togDisplayRealTimeSpeed.IsChecked).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.KeepOlderDedupl, v => v.togKeepOlderDedupl.IsChecked).DisposeWith(disposables);
             this.Bind(ViewModel, vm => vm.EnableAutoAdjustMainLvColWidth, v => v.togEnableAutoAdjustMainLvColWidth.IsChecked).DisposeWith(disposables);

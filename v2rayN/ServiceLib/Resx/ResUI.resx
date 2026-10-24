@@ -1989,4 +1989,37 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="TbAppRuleSaved" xml:space="preserve">
     <value>Rule saved, reloading core…</value>
   </data>
+  <data name="TbSubExpired" xml:space="preserve">
+    <value>expired</value>
+  </data>
+  <data name="TbSubDaysLeft" xml:space="preserve">
+    <value>{0}d left</value>
+  </data>
+  <data name="LvSubUsage" xml:space="preserve">
+    <value>Usage / expiry</value>
+  </data>
+  <data name="TbSendHwid" xml:space="preserve">
+    <value>Send device ID (HWID) — for panels that limit devices</value>
+  </data>
+  <data name="TbSettingsAutoSwitch" xml:space="preserve">
+    <value>Auto switch</value>
+  </data>
+  <data name="TbAutoSwitchEnable" xml:space="preserve">
+    <value>Auto-select fastest server</value>
+  </data>
+  <data name="TbAutoSwitchInterval" xml:space="preserve">
+    <value>Test all servers every (minutes)</value>
+  </data>
+  <data name="TbAutoSwitchThreshold" xml:space="preserve">
+    <value>Switch only if faster by (%)</value>
+  </data>
+  <data name="TbAutoSwitchCurrentSub" xml:space="preserve">
+    <value>Only servers of the selected subscription</value>
+  </data>
+  <data name="TbAutoSwitchTip" xml:space="preserve">
+    <value>Every minute the active server is checked; if it stops answering, all servers are real-delay tested right away and the fastest working one becomes active. Otherwise a full test runs on the interval above.</value>
+  </data>
+  <data name="MsgAutoSwitched" xml:space="preserve">
+    <value>Auto-switched to {0} ({1} ms)</value>
+  </data>
 </root>

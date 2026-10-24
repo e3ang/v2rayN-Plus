@@ -154,6 +154,19 @@ public class TunModeItem
 }
 
 [Serializable]
+public class AutoSwitchItem
+{
+    public bool Enabled { get; set; }
+    public int IntervalMinutes { get; set; } = 30;
+
+    // switch only when the best server is at least this many percent faster than the current one
+    public int ThresholdPercent { get; set; } = 30;
+
+    // test only servers of the subscription shown in the list, otherwise all servers
+    public bool CurrentSubOnly { get; set; } = true;
+}
+
+[Serializable]
 public class SpeedTestItem
 {
     public int SpeedTestTimeout { get; set; }

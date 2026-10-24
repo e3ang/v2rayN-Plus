@@ -37,4 +37,13 @@ public class SubItem
     public string? Memo { get; set; }
 
     public ECoreType? CustomCoreType { get; set; }
+
+    // raw "subscription-userinfo" header from the last successful update
+    public string? UserInfo { get; set; }
+
+    // send x-hwid / x-device-os / x-ver-os / x-device-model like Happ, for panels that limit devices
+    public bool SendHwid { get; set; }
+
+    [Ignore]
+    public string UsageText => SubscriptionUsage.FormatHeader(UserInfo);
 }

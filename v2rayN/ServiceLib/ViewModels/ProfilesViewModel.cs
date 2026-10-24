@@ -95,6 +95,7 @@ public partial class ProfilesViewModel : MyReactiveObject
     public ProfilesViewModel()
     {
         _config = AppManager.Instance.Config;
+        Task.Run(AutoSwitchTask);
 
         #region WhenAnyValue && ReactiveCommand
 
@@ -734,6 +735,111 @@ public partial class ProfilesViewModel : MyReactiveObject
         });
         _speedtestService?.RunLoop(actionType, lstSelected);
     }
+
+    #region Auto switch
+
+    private bool _autoSwitchRunning;
+
+    /// <summary>
+    /// Every minute checks that the active server still answers; every IntervalMinutes (or right
+    /// away when it stopped answering) real-delay tests the candidates and moves to the fastest.
+    /// </summary>
+    private async Task AutoSwitchTask()
+    {
+        using var timer = new PeriodicTimer(TimeSpan.FromMinutes(1));
+        var minutes = 0;
+        while (await timer.WaitForNextTickAsync().ConfigureAwait(false))
+        {
+            var item = _config.AutoSwitchItem;
+            if (item is not { Enabled: true } || _autoSwitchRunning)
+            {
+                minutes = 0;
+                continue;
+            }
+
+            _autoSwitchRunning = true;
+            try
+            {
+                minutes++;
+                var due = minutes >= Math.Max(1, item.IntervalMinutes);
+                if (!due)
+                {
+                    var current = await AppManager.Instance.GetProfileItem(_config.IndexId);
+                    if (current != null)
+                    {
+                        var delays = await RealDelay([current]);
+                        due = delays.GetValueOrDefault(current.IndexId) <= 0;
+                    }
+                }
+                if (due)
+                {
+                    minutes = 0;
+                    await AutoSwitchOnce(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.SaveLog("AutoSwitchTask", ex);
+            }
+            finally
+            {
+                _autoSwitchRunning = false;
+            }
+        }
+    }
+
+    private async Task<Dictionary<string, int>> RealDelay(List<ProfileItem> items)
+    {
+        var service = new SpeedtestService(_config, result =>
+        {
+            RxSchedulers.MainThreadScheduler.Schedule(() => _ = SetSpeedTestResult(result));
+            return Task.CompletedTask;
+        });
+        await service.RunLoop(ESpeedActionType.Realping, JsonUtils.DeepCopy(items));
+
+        var ids = items.Select(t => t.IndexId).ToHashSet();
+        return (await ProfileExManager.Instance.GetProfileExs())
+            .Where(t => ids.Contains(t.IndexId))
+            .GroupBy(t => t.IndexId)
+            .ToDictionary(g => g.Key, g => g.First().Delay);
+    }
+
+    private async Task AutoSwitchOnce(AutoSwitchItem item)
+    {
+        var candidates = (await AppManager.Instance.ProfileItems(item.CurrentSubOnly ? _config.SubIndexId : string.Empty) ?? [])
+            .Where(t => !t.ConfigType.IsGroupType() && t.ConfigType != EConfigType.Custom)
+            .ToList();
+        var current = await AppManager.Instance.GetProfileItem(_config.IndexId);
+        if (current != null && candidates.All(t => t.IndexId != current.IndexId))
+        {
+            candidates.Add(current);
+        }
+        if (candidates.Count == 0)
+        {
+            return;
+        }
+
+        var delays = await RealDelay(candidates);
+        var best = delays.Where(t => t.Value > 0).OrderBy(t => t.Value).FirstOrDefault();
+        if (best.Key.IsNullOrEmpty() || best.Key == _config.IndexId)
+        {
+            return;
+        }
+
+        var currentDelay = delays.GetValueOrDefault(_config.IndexId ?? string.Empty);
+        var limit = currentDelay * (100 - Math.Clamp(item.ThresholdPercent, 0, 95)) / 100;
+        if (currentDelay > 0 && best.Value >= limit)
+        {
+            return;
+        }
+
+        var remarks = candidates.FirstOrDefault(t => t.IndexId == best.Key)?.Remarks;
+        NoticeManager.Instance.Enqueue(string.Format(ResUI.MsgAutoSwitched, remarks, best.Value));
+        Logging.SaveLog($"AutoSwitch: {_config.IndexId} ({currentDelay} ms) -> {best.Key} ({best.Value} ms)");
+        RxSchedulers.MainThreadScheduler.Schedule(() => _ = SetDefaultServer(best.Key));
+    }
+
+    #endregion Auto switch
 
     public void ServerSpeedtestStop()
     {

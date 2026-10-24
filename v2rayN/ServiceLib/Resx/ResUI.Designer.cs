@@ -5584,5 +5584,69 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("TbAppRuleSaved", resourceCulture);
             }
         }
+            public static string TbSubExpired {
+            get {
+                return ResourceManager.GetString("TbSubExpired", resourceCulture);
+            }
+        }
+
+        public static string TbSubDaysLeft {
+            get {
+                return ResourceManager.GetString("TbSubDaysLeft", resourceCulture);
+            }
+        }
+
+        public static string LvSubUsage {
+            get {
+                return ResourceManager.GetString("LvSubUsage", resourceCulture);
+            }
+        }
+
+        public static string TbSendHwid {
+            get {
+                return ResourceManager.GetString("TbSendHwid", resourceCulture);
+            }
+        }
+            public static string TbSettingsAutoSwitch {
+            get {
+                return ResourceManager.GetString("TbSettingsAutoSwitch", resourceCulture);
+            }
+        }
+
+        public static string TbAutoSwitchEnable {
+            get {
+                return ResourceManager.GetString("TbAutoSwitchEnable", resourceCulture);
+            }
+        }
+
+        public static string TbAutoSwitchInterval {
+            get {
+                return ResourceManager.GetString("TbAutoSwitchInterval", resourceCulture);
+            }
+        }
+
+        public static string TbAutoSwitchThreshold {
+            get {
+                return ResourceManager.GetString("TbAutoSwitchThreshold", resourceCulture);
+            }
+        }
+
+        public static string TbAutoSwitchCurrentSub {
+            get {
+                return ResourceManager.GetString("TbAutoSwitchCurrentSub", resourceCulture);
+            }
+        }
+
+        public static string TbAutoSwitchTip {
+            get {
+                return ResourceManager.GetString("TbAutoSwitchTip", resourceCulture);
+            }
+        }
+
+        public static string MsgAutoSwitched {
+            get {
+                return ResourceManager.GetString("MsgAutoSwitched", resourceCulture);
+            }
+        }
     }
 }

@@ -31,7 +31,13 @@
                     Style="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Remarks}" />
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Remarks}" />
+                                <TextBlock
+                                    Margin="6,0,0,0"
+                                    Opacity="0.7"
+                                    Text="{Binding UsageText}" />
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

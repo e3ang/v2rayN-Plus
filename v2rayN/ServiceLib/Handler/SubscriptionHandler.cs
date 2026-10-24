@@ -87,6 +87,15 @@ public static class SubscriptionHandler
             throw new FormatException(ResUI.SubRequestHeadersInvalid);
         }
 
+        if (item.SendHwid)
+        {
+            foreach (var (name, value) in HwidHelper.GetDeviceHeaders())
+            {
+                // headers typed by the user win
+                requestHeaders.TryAdd(name, value);
+            }
+        }
+
         var downloadHandle = new DownloadService
         {
             AcceptHeader = "*/*",
@@ -151,8 +160,17 @@ public static class SubscriptionHandler
             }
         }
 
-        // Download and return result directly
-        return await DownloadSubscriptionContent(downloadHandle, url, blProxy, item.UserAgent);
+        var result = await DownloadSubscriptionContent(downloadHandle, url, blProxy, item.UserAgent);
+
+        // a converter in front of the panel does not forward its headers
+        if (item.ConvertTarget.IsNullOrEmpty() && downloadHandle.LastSubscriptionUserInfo.IsNotEmpty()
+            && downloadHandle.LastSubscriptionUserInfo != item.UserInfo)
+        {
+            item.UserInfo = downloadHandle.LastSubscriptionUserInfo;
+            await SQLiteHelper.Instance.UpdateAsync(item);
+        }
+
+        return result;
     }
 
     private static async Task<string> DownloadAdditionalSubscriptions(SubItem item, string mainResult, bool blProxy, DownloadService downloadHandle)
