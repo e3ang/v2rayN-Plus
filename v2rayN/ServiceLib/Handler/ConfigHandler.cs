@@ -293,6 +293,7 @@ public static class ConfigHandler
             EConfigType.Anytls => await AddAnytlsServer(config, item),
             EConfigType.Naive => await AddNaiveServer(config, item),
             EConfigType.MASQUE => await AddMasqueServer(config, item),
+            EConfigType.SSH => await AddSSHServer(config, item),
             _ => -1,
         };
         return ret;
@@ -1017,6 +1018,48 @@ public static class ConfigHandler
     }
 
     /// <summary>
+    /// Add or edit an SSH server
+    /// Validates and processes SSH-specific settings (sing-box core only)
+    /// </summary>
+    /// <param name="config">Current configuration</param>
+    /// <param name="profileItem">SSH profile to add</param>
+    /// <param name="toFile">Whether to save to file</param>
+    /// <returns>0 if successful, -1 if failed</returns>
+    public static async Task<int> AddSSHServer(Config config, ProfileItem profileItem, bool toFile = true)
+    {
+        profileItem.ConfigType = EConfigType.SSH;
+        profileItem.CoreType = ECoreType.sing_box;
+
+        profileItem.Address = profileItem.Address.TrimEx();
+        profileItem.Username = profileItem.Username.TrimEx();
+        profileItem.Password = profileItem.Password.TrimEx();
+        profileItem.Network = string.Empty;
+        profileItem.StreamSecurity = string.Empty;
+        profileItem.Alpn = string.Empty;
+        profileItem.Fingerprint = string.Empty;
+
+        if (profileItem.Username.IsNullOrEmpty())
+        {
+            return -1;
+        }
+
+        var extra = profileItem.GetProtocolExtra();
+        var hasInlineKey = extra.SshPrivateKey.IsNotEmpty();
+        var hasKeyPath = extra.SshPrivateKeyPath.IsNotEmpty();
+        if (hasInlineKey && hasKeyPath)
+        {
+            return -1;
+        }
+        if (profileItem.Password.IsNullOrEmpty() && !hasInlineKey && !hasKeyPath)
+        {
+            return -1;
+        }
+
+        await AddServerCommon(config, profileItem, toFile);
+        return 0;
+    }
+
+    /// <summary>
     /// Sort the server list by the specified column
     /// Updates the sort order in the profile extension data
     /// </summary>
@@ -1709,6 +1752,7 @@ public static class ConfigHandler
                 EConfigType.Anytls => await AddAnytlsServer(config, profileItem, false),
                 EConfigType.Naive => await AddNaiveServer(config, profileItem, false),
                 EConfigType.MASQUE => await AddMasqueServer(config, profileItem, false),
+                EConfigType.SSH => await AddSSHServer(config, profileItem, false),
                 _ => -1,
             };
 
@@ -2031,6 +2075,7 @@ public static class ConfigHandler
                     EConfigType.WireGuard => await AddWireguardServer(config, profileItem, false),
                     EConfigType.Anytls => await AddAnytlsServer(config, profileItem, false),
                     EConfigType.Naive => await AddNaiveServer(config, profileItem, false),
+                    EConfigType.SSH => await AddSSHServer(config, profileItem, false),
                     EConfigType.PolicyGroup or EConfigType.ProxyChain => await AddServerCommon(config, profileItem, false),
                     EConfigType.Outbound => await AddCustomOutboundServer(config, profileItem, true, false),
                     _ => -1,

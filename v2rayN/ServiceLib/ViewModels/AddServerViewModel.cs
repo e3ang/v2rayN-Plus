@@ -104,6 +104,24 @@ public partial class AddServerViewModel : MyReactiveObject, ICloseable
     public partial string MasqueHeaders { get; set; }
 
     [Reactive]
+    public partial string SshPrivateKey { get; set; }
+
+    [Reactive]
+    public partial string SshPrivateKeyPath { get; set; }
+
+    [Reactive]
+    public partial string SshPrivateKeyPassphrase { get; set; }
+
+    [Reactive]
+    public partial string SshHostKey { get; set; }
+
+    [Reactive]
+    public partial string SshHostKeyAlgorithms { get; set; }
+
+    [Reactive]
+    public partial string SshClientVersion { get; set; }
+
+    [Reactive]
     public partial string RawHeaderType { get; set; }
 
     [Reactive]
@@ -330,6 +348,12 @@ public partial class AddServerViewModel : MyReactiveObject, ICloseable
         GeckoMaxPacketSize = protocolExtra.GeckoMaxPacketSize.ToInt();
         MasquePath = protocolExtra.MasquePath ?? string.Empty;
         MasqueHeaders = protocolExtra.MasqueHeaders ?? string.Empty;
+        SshPrivateKey = protocolExtra.SshPrivateKey ?? string.Empty;
+        SshPrivateKeyPath = protocolExtra.SshPrivateKeyPath ?? string.Empty;
+        SshPrivateKeyPassphrase = protocolExtra.SshPrivateKeyPassphrase ?? string.Empty;
+        SshHostKey = protocolExtra.SshHostKey ?? string.Empty;
+        SshHostKeyAlgorithms = protocolExtra.SshHostKeyAlgorithms ?? string.Empty;
+        SshClientVersion = protocolExtra.SshClientVersion ?? string.Empty;
 
         RawHeaderType = transport.RawHeaderType ?? Global.None;
         Host = transport.Host ?? string.Empty;
@@ -377,7 +401,27 @@ public partial class AddServerViewModel : MyReactiveObject, ICloseable
                 return;
             }
         }
-        if (SelectedSource.ConfigType is not EConfigType.SOCKS and not EConfigType.HTTP)
+        if (SelectedSource.ConfigType == EConfigType.SSH)
+        {
+            if (SelectedSource.Username.IsNullOrEmpty())
+            {
+                NoticeManager.Instance.Enqueue(ResUI.PleaseFillUsername);
+                return;
+            }
+            var hasInlineKey = SshPrivateKey.IsNotEmpty();
+            var hasKeyPath = SshPrivateKeyPath.IsNotEmpty();
+            if (hasInlineKey && hasKeyPath)
+            {
+                NoticeManager.Instance.Enqueue(ResUI.FillSshAuth);
+                return;
+            }
+            if (SelectedSource.Password.IsNullOrEmpty() && !hasInlineKey && !hasKeyPath)
+            {
+                NoticeManager.Instance.Enqueue(ResUI.FillSshAuth);
+                return;
+            }
+        }
+        else if (SelectedSource.ConfigType is not EConfigType.SOCKS and not EConfigType.HTTP)
         {
             if (SelectedSource.Password.IsNullOrEmpty())
             {
@@ -453,6 +497,12 @@ public partial class AddServerViewModel : MyReactiveObject, ICloseable
             GeckoMaxPacketSize = GeckoMaxPacketSize > 0 ? GeckoMaxPacketSize.ToString() : null,
             MasquePath = MasquePath.NullIfEmpty(),
             MasqueHeaders = MasqueHeaders.NullIfEmpty(),
+            SshPrivateKey = SshPrivateKey.NullIfEmpty(),
+            SshPrivateKeyPath = SshPrivateKeyPath.NullIfEmpty(),
+            SshPrivateKeyPassphrase = SshPrivateKeyPassphrase.NullIfEmpty(),
+            SshHostKey = SshHostKey.NullIfEmpty(),
+            SshHostKeyAlgorithms = SshHostKeyAlgorithms.NullIfEmpty(),
+            SshClientVersion = SshClientVersion.NullIfEmpty(),
         });
         SelectedSource.SetTransportExtra(transport);
 

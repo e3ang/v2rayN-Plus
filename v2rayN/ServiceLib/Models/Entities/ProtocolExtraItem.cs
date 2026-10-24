@@ -50,6 +50,14 @@ public record ProtocolExtraItem
     public string? MasquePath { get; init; }
     public string? MasqueHeaders { get; init; }
 
+    // ssh
+    public string? SshPrivateKey { get; init; }
+    public string? SshPrivateKeyPath { get; init; }
+    public string? SshPrivateKeyPassphrase { get; init; }
+    public string? SshHostKey { get; init; }
+    public string? SshHostKeyAlgorithms { get; init; }
+    public string? SshClientVersion { get; init; }
+
     // group profile
     public string? GroupType { get; init; }
     public string? ChildItems { get; init; }

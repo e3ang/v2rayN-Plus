@@ -148,6 +148,17 @@ public partial class AddServerWindow : WindowBase<AddServerViewModel>
                             this.Bind(ViewModel, vm => vm.MasquePath, v => v.txtPath14.Text).DisposeWith(currentTypeDisposables);
                             this.Bind(ViewModel, vm => vm.MasqueHeaders, v => v.txtHttpHeaders14.Text).DisposeWith(currentTypeDisposables);
                             break;
+
+                        case EConfigType.SSH:
+                            this.Bind(ViewModel, vm => vm.SelectedSource.Username, v => v.txtUsernameSsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SelectedSource.Password, v => v.txtPasswordSsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshPrivateKey, v => v.txtPrivateKeySsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshPrivateKeyPath, v => v.txtPrivateKeyPathSsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshPrivateKeyPassphrase, v => v.txtPassphraseSsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshHostKey, v => v.txtHostKeySsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshHostKeyAlgorithms, v => v.txtHostKeyAlgoSsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshClientVersion, v => v.txtClientVersionSsh.Text).DisposeWith(currentTypeDisposables);
+                            break;
                     }
                 })
                 .DisposeWith(disposables);
@@ -297,6 +308,15 @@ public partial class AddServerWindow : WindowBase<AddServerViewModel>
                 gridTransport.IsVisible = false;
                 cmbFingerprint.IsEnabled = false;
                 cmbAlpn.IsEnabled = false;
+                break;
+
+            case EConfigType.SSH:
+                gridSsh.IsVisible = true;
+                sepa2.IsVisible = false;
+                gridTransport.IsVisible = false;
+                gridTls.IsVisible = false;
+                cmbCoreType.IsEnabled = false;
+                gridFinalmask.IsVisible = false;
                 break;
         }
         cmbStreamSecurity.ItemsSource = lstStreamSecurity;

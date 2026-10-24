@@ -146,6 +146,17 @@ public partial class AddServerWindow
                             this.Bind(ViewModel, vm => vm.MasquePath, v => v.txtPath14.Text).DisposeWith(currentTypeDisposables);
                             this.Bind(ViewModel, vm => vm.MasqueHeaders, v => v.txtHeaders14.Text).DisposeWith(currentTypeDisposables);
                             break;
+
+                        case EConfigType.SSH:
+                            this.Bind(ViewModel, vm => vm.SelectedSource.Username, v => v.txtUsernameSsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SelectedSource.Password, v => v.txtPasswordSsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshPrivateKey, v => v.txtPrivateKeySsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshPrivateKeyPath, v => v.txtPrivateKeyPathSsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshPrivateKeyPassphrase, v => v.txtPassphraseSsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshHostKey, v => v.txtHostKeySsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshHostKeyAlgorithms, v => v.txtHostKeyAlgoSsh.Text).DisposeWith(currentTypeDisposables);
+                            this.Bind(ViewModel, vm => vm.SshClientVersion, v => v.txtClientVersionSsh.Text).DisposeWith(currentTypeDisposables);
+                            break;
                     }
                 })
                 .DisposeWith(disposables);
@@ -298,6 +309,15 @@ public partial class AddServerWindow
                 gridTransport.Visibility = Visibility.Collapsed;
                 cmbFingerprint.IsEnabled = false;
                 cmbAlpn.IsEnabled = false;
+                break;
+
+            case EConfigType.SSH:
+                gridSsh.Visibility = Visibility.Visible;
+                sepa2.Visibility = Visibility.Collapsed;
+                gridTransport.Visibility = Visibility.Collapsed;
+                gridTls.Visibility = Visibility.Collapsed;
+                cmbCoreType.IsEnabled = false;
+                gridFinalmask.Visibility = Visibility.Collapsed;
                 break;
         }
         cmbStreamSecurity.ItemsSource = lstStreamSecurity;

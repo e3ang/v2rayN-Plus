@@ -263,6 +263,7 @@ public class Global
         { EConfigType.Anytls, "anytls" },
         { EConfigType.Naive, "naive" },
         { EConfigType.MASQUE, "masque" },
+        { EConfigType.SSH, "ssh" },
     };
 
     public static readonly List<string> VmessSecurities =
@@ -389,6 +390,7 @@ public class Global
         EConfigType.Naive,
         EConfigType.WireGuard,
         EConfigType.MASQUE,
+        EConfigType.SSH,
         EConfigType.SOCKS,
         EConfigType.HTTP,
     ];
