@@ -354,6 +354,7 @@
                             <TabItem x:Name="tabMsgView" Header="{x:Static resx:ResUI.MsgInformationTitle}" />
                             <TabItem x:Name="tabClashProxies" Header="{x:Static resx:ResUI.TbProxies}" />
                             <TabItem x:Name="tabClashConnections" Header="{x:Static resx:ResUI.TbConnections}" />
+                            <TabItem x:Name="tabAppTraffic" Header="{x:Static resx:ResUI.TbApps}" />
                         </TabControl>
                     </Grid>
                     <Grid x:Name="gridMain1" Visibility="Collapsed">
@@ -400,6 +401,17 @@
                                             HorizontalAlignment="Center"
                                             Style="{StaticResource ToolbarTextBlock}"
                                             Text="{x:Static resx:ResUI.TbConnections}" />
+                                    </StackPanel>
+                                </TabItem.Header>
+                            </TabItem>
+                            <TabItem x:Name="tabAppTraffic1">
+                                <TabItem.Header>
+                                    <StackPanel>
+                                        <materialDesign:PackIcon HorizontalAlignment="Center" Kind="Apps" />
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            Style="{StaticResource ToolbarTextBlock}"
+                                            Text="{x:Static resx:ResUI.TbApps}" />
                                     </StackPanel>
                                 </TabItem.Header>
                             </TabItem>
@@ -452,6 +464,17 @@
                                             HorizontalAlignment="Center"
                                             Style="{StaticResource ToolbarTextBlock}"
                                             Text="{x:Static resx:ResUI.TbConnections}" />
+                                    </StackPanel>
+                                </TabItem.Header>
+                            </TabItem>
+                            <TabItem x:Name="tabAppTraffic2">
+                                <TabItem.Header>
+                                    <StackPanel>
+                                        <materialDesign:PackIcon HorizontalAlignment="Center" Kind="Apps" />
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            Style="{StaticResource ToolbarTextBlock}"
+                                            Text="{x:Static resx:ResUI.TbApps}" />
                                     </StackPanel>
                                 </TabItem.Header>
                             </TabItem>

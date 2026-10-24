@@ -1773,4 +1773,88 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="menuNewUpdate" xml:space="preserve">
     <value>New Update</value>
   </data>
+  <data name="TbApps" xml:space="preserve">
+    <value>برنامه‌ها</value>
+  </data>
+  <data name="TbAppsHint" xml:space="preserve">
+    <value>آمار هر برنامه فقط با هستهٔ sing-box کار می‌کند (سرور sing-box یا حالت TUN). روی برنامه راست‌کلیک کنید تا اینترنتش قطع شود، مستقیم وصل شود یا حتماً از پروکسی برود.</value>
+  </data>
+  <data name="TbAppName" xml:space="preserve">
+    <value>برنامه</value>
+  </data>
+  <data name="TbAppRule" xml:space="preserve">
+    <value>قانون</value>
+  </data>
+  <data name="TbAppConnections" xml:space="preserve">
+    <value>اتصال</value>
+  </data>
+  <data name="TbAppUpload" xml:space="preserve">
+    <value>آپلود</value>
+  </data>
+  <data name="TbAppDownload" xml:space="preserve">
+    <value>دانلود</value>
+  </data>
+  <data name="TbAppSpeed" xml:space="preserve">
+    <value>سرعت</value>
+  </data>
+  <data name="menuAppBlock" xml:space="preserve">
+    <value>قطع اینترنت این برنامه</value>
+  </data>
+  <data name="menuAppDirect" xml:space="preserve">
+    <value>مستقیم (بدون پروکسی)</value>
+  </data>
+  <data name="menuAppProxy" xml:space="preserve">
+    <value>همیشه از طریق پروکسی</value>
+  </data>
+  <data name="menuAppReset" xml:space="preserve">
+    <value>حذف قانون (مسیریابی پیش‌فرض)</value>
+  </data>
+  <data name="menuAppCloseConnections" xml:space="preserve">
+    <value>بستن اتصال‌هایش</value>
+  </data>
+  <data name="menuAppResetStats" xml:space="preserve">
+    <value>صفر کردن آمار</value>
+  </data>
+  <data name="TbAppRuleDefault" xml:space="preserve">
+    <value>پیش‌فرض</value>
+  </data>
+  <data name="TbAppRuleBlock" xml:space="preserve">
+    <value>قطع</value>
+  </data>
+  <data name="TbAppRuleDirect" xml:space="preserve">
+    <value>مستقیم</value>
+  </data>
+  <data name="TbAppRuleProxy" xml:space="preserve">
+    <value>پروکسی</value>
+  </data>
+  <data name="TbAppRuleSaved" xml:space="preserve">
+    <value>قانون ذخیره شد، هسته دوباره راه‌اندازی می‌شود…</value>
+  </data>
+  <data name="menuAddSshServer" xml:space="preserve">
+    <value>افزودن سرور [SSH]</value>
+  </data>
+  <data name="TbSshPrivateKey" xml:space="preserve">
+    <value>کلید خصوصی (PEM)</value>
+  </data>
+  <data name="TbSshPrivateKeyPath" xml:space="preserve">
+    <value>مسیر کلید خصوصی (مثلاً ~/.ssh/id_ed25519)</value>
+  </data>
+  <data name="TbSshPassphrase" xml:space="preserve">
+    <value>رمز کلید</value>
+  </data>
+  <data name="TbSshHostKey" xml:space="preserve">
+    <value>کلید میزبان (با کاما جدا کنید)</value>
+  </data>
+  <data name="TbSshHostKeyAlgorithms" xml:space="preserve">
+    <value>الگوریتم‌های کلید میزبان (با کاما جدا کنید)</value>
+  </data>
+  <data name="TbSshClientVersion" xml:space="preserve">
+    <value>نسخهٔ کلاینت</value>
+  </data>
+  <data name="FillSshAuth" xml:space="preserve">
+    <value>یا رمز عبور یا کلید خصوصی وارد کنید (متن کلید یا مسیر آن، نه هر دو).</value>
+  </data>
+  <data name="PleaseFillUsername" xml:space="preserve">
+    <value>لطفاً نام کاربری را وارد کنید.</value>
+  </data>
 </root>

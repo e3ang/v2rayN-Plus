@@ -13,6 +13,7 @@ public partial class MainWindowViewModel : MyReactiveObject
     public MsgViewModel MsgViewModel { get; } = new();
     public ClashProxiesViewModel ClashProxiesViewModel { get; } = new();
     public ClashConnectionsViewModel ClashConnectionsViewModel { get; } = new();
+    public AppTrafficViewModel AppTrafficViewModel { get; }
     public CheckUpdateViewModel CheckUpdateViewModel { get; } = new();
     public BackupAndRestoreViewModel BackupAndRestoreViewModel { get; } = new();
     public StatusBarViewModel StatusBarViewModel { get; } = StatusBarViewModel.Instance;
@@ -92,6 +93,7 @@ public partial class MainWindowViewModel : MyReactiveObject
     public MainWindowViewModel()
     {
         _config = AppManager.Instance.Config;
+        AppTrafficViewModel = new(Reload);
         BlIsWindows = Utils.IsWindows();
         MainGirdOrientation = _config.UiItem.MainGirdOrientation;
 

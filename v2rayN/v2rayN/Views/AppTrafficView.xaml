@@ -1,0 +1,127 @@
+<reactiveui:ReactiveUserControl
+    x:Class="v2rayN.Views.AppTrafficView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="clr-namespace:v2rayN.Base"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:reactiveui="http://reactiveui.net"
+    xmlns:resx="clr-namespace:ServiceLib.Resx;assembly=ServiceLib"
+    xmlns:vms="clr-namespace:ServiceLib.ViewModels;assembly=ServiceLib"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    x:TypeArguments="vms:AppTrafficViewModel"
+    mc:Ignorable="d">
+
+    <DockPanel Margin="{StaticResource Margin4}">
+        <WrapPanel
+            Margin="{StaticResource Margin8}"
+            VerticalAlignment="Center"
+            DockPanel.Dock="Top"
+            Orientation="Horizontal">
+
+            <Button
+                x:Name="btnBlock"
+                Width="24"
+                Height="24"
+                Margin="{StaticResource MarginLeftRight8}"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                ToolTip="{x:Static resx:ResUI.menuAppBlock}">
+                <materialDesign:PackIcon VerticalAlignment="Center" Kind="Cancel" />
+            </Button>
+            <Button
+                x:Name="btnDirect"
+                Width="24"
+                Height="24"
+                Margin="{StaticResource MarginLeftRight8}"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                ToolTip="{x:Static resx:ResUI.menuAppDirect}">
+                <materialDesign:PackIcon VerticalAlignment="Center" Kind="ArrowRightBold" />
+            </Button>
+            <Button
+                x:Name="btnProxy"
+                Width="24"
+                Height="24"
+                Margin="{StaticResource MarginLeftRight8}"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                ToolTip="{x:Static resx:ResUI.menuAppProxy}">
+                <materialDesign:PackIcon VerticalAlignment="Center" Kind="ShieldLock" />
+            </Button>
+            <Button
+                x:Name="btnReset"
+                Width="24"
+                Height="24"
+                Margin="{StaticResource MarginLeftRight8}"
+                Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                ToolTip="{x:Static resx:ResUI.menuAppReset}">
+                <materialDesign:PackIcon VerticalAlignment="Center" Kind="Restore" />
+            </Button>
+
+            <TextBlock
+                MaxWidth="600"
+                Margin="{StaticResource MarginLeftRight8}"
+                VerticalAlignment="Center"
+                Opacity="0.7"
+                Style="{StaticResource ToolbarTextBlock}"
+                Text="{x:Static resx:ResUI.TbAppsHint}"
+                TextWrapping="Wrap" />
+        </WrapPanel>
+
+        <DataGrid
+            x:Name="lstApps"
+            AutoGenerateColumns="False"
+            BorderThickness="1"
+            CanUserAddRows="False"
+            CanUserResizeRows="False"
+            EnableRowVirtualization="True"
+            GridLinesVisibility="All"
+            HeadersVisibility="Column"
+            IsReadOnly="True"
+            Style="{StaticResource DefDataGrid}">
+            <DataGrid.ContextMenu>
+                <ContextMenu Style="{StaticResource DefContextMenu}">
+                    <MenuItem x:Name="menuAppBlock" Header="{x:Static resx:ResUI.menuAppBlock}" />
+                    <MenuItem x:Name="menuAppDirect" Header="{x:Static resx:ResUI.menuAppDirect}" />
+                    <MenuItem x:Name="menuAppProxy" Header="{x:Static resx:ResUI.menuAppProxy}" />
+                    <MenuItem x:Name="menuAppReset" Header="{x:Static resx:ResUI.menuAppReset}" />
+                    <Separator />
+                    <MenuItem x:Name="menuAppCloseConnections" Header="{x:Static resx:ResUI.menuAppCloseConnections}" />
+                    <MenuItem x:Name="menuAppResetStats" Header="{x:Static resx:ResUI.menuAppResetStats}" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="180"
+                    Binding="{Binding ProcessName}"
+                    Header="{x:Static resx:ResUI.TbAppName}" />
+                <DataGridTextColumn
+                    Width="80"
+                    Binding="{Binding Rule}"
+                    Header="{x:Static resx:ResUI.TbAppRule}" />
+                <DataGridTextColumn
+                    Width="60"
+                    Binding="{Binding Connections}"
+                    Header="{x:Static resx:ResUI.TbAppConnections}" />
+                <DataGridTextColumn
+                    Width="90"
+                    Binding="{Binding UploadTraffic}"
+                    SortMemberPath="Upload"
+                    Header="{x:Static resx:ResUI.TbAppUpload}" />
+                <DataGridTextColumn
+                    Width="90"
+                    Binding="{Binding DownloadTraffic}"
+                    SortMemberPath="Download"
+                    Header="{x:Static resx:ResUI.TbAppDownload}" />
+                <DataGridTextColumn
+                    Width="200"
+                    Binding="{Binding Speed}"
+                    Header="{x:Static resx:ResUI.TbAppSpeed}" />
+                <DataGridTextColumn
+                    Width="400"
+                    Binding="{Binding ProcessPath}"
+                    Header="{x:Static resx:ResUI.TbSortingProcess}" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</reactiveui:ReactiveUserControl>

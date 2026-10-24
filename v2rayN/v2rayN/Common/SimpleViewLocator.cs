@@ -15,6 +15,7 @@ public class SimpleViewLocator : IViewLocator
         Register<AddServerViewModel, AddServerWindow>();
         Register<BackupAndRestoreViewModel, BackupAndRestoreView>();
         Register<CheckUpdateViewModel, CheckUpdateView>();
+        Register<AppTrafficViewModel, AppTrafficView>();
         Register<ClashConnectionsViewModel, ClashConnectionsView>();
         Register<ClashProxiesViewModel, ClashProxiesView>();
         Register<DNSSettingViewModel, DNSSettingWindow>();

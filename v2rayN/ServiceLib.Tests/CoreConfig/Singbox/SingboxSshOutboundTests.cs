@@ -52,7 +52,7 @@ public class SingboxSshOutboundTests
         var proxy = GenerateProxy(CoreConfigTestFactory.CreateSshNode(password: string.Empty, privateKeyPath: "~/.ssh/id_ed25519"));
 
         var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-        await proxy.private_key_path.Should().BeEqualTo(Path.Combine(home, ".ssh/id_ed25519"));
+        await proxy.private_key_path.Should().BeEqualTo(Path.Combine(home, ".ssh", "id_ed25519"));
     }
 
     [Test]

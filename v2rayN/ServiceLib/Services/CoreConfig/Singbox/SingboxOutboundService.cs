@@ -351,7 +351,7 @@ public partial class CoreConfigSingboxService
                         var keyPath = protocolExtra.SshPrivateKeyPath.NullIfEmpty();
                         if (keyPath != null && keyPath.StartsWith('~'))
                         {
-                            keyPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), keyPath.TrimStart('~', '/', '\\'));
+                            keyPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), keyPath.TrimStart('~', '/', '\\').Replace('/', Path.DirectorySeparatorChar));
                         }
                         outbound.private_key_path = keyPath;
                         outbound.private_key_passphrase = protocolExtra.SshPrivateKeyPassphrase.NullIfEmpty();

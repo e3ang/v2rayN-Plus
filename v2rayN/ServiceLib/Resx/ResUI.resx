@@ -1932,4 +1932,61 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="menuAddMasqueServer" xml:space="preserve">
     <value>Add [MASQUE]</value>
   </data>
+  <data name="TbApps" xml:space="preserve">
+    <value>Apps</value>
+  </data>
+  <data name="TbAppsHint" xml:space="preserve">
+    <value>Per-app usage needs the sing-box core (any sing-box server, or TUN mode). Right-click an app to block it, send it direct, or force it through the proxy.</value>
+  </data>
+  <data name="TbAppName" xml:space="preserve">
+    <value>App</value>
+  </data>
+  <data name="TbAppRule" xml:space="preserve">
+    <value>Rule</value>
+  </data>
+  <data name="TbAppConnections" xml:space="preserve">
+    <value>Conns</value>
+  </data>
+  <data name="TbAppUpload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="TbAppDownload" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="TbAppSpeed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="menuAppBlock" xml:space="preserve">
+    <value>Block internet for this app</value>
+  </data>
+  <data name="menuAppDirect" xml:space="preserve">
+    <value>Direct (bypass proxy)</value>
+  </data>
+  <data name="menuAppProxy" xml:space="preserve">
+    <value>Always through proxy</value>
+  </data>
+  <data name="menuAppReset" xml:space="preserve">
+    <value>Remove rule (default routing)</value>
+  </data>
+  <data name="menuAppCloseConnections" xml:space="preserve">
+    <value>Close its connections</value>
+  </data>
+  <data name="menuAppResetStats" xml:space="preserve">
+    <value>Reset statistics</value>
+  </data>
+  <data name="TbAppRuleDefault" xml:space="preserve">
+    <value>Default</value>
+  </data>
+  <data name="TbAppRuleBlock" xml:space="preserve">
+    <value>Blocked</value>
+  </data>
+  <data name="TbAppRuleDirect" xml:space="preserve">
+    <value>Direct</value>
+  </data>
+  <data name="TbAppRuleProxy" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
+  <data name="TbAppRuleSaved" xml:space="preserve">
+    <value>Rule saved, reloading core…</value>
+  </data>
 </root>

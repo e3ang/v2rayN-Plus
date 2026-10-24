@@ -32,6 +32,8 @@ public partial class CoreConfigSingboxService
                 server = defaultDomainResolverTag,
                 strategy = dialDnsStrategy
             };
+            // fills metadata.processPath in the clash API for the per-app traffic view
+            _coreConfig.route.find_process = true;
 
             if (context.IsTunEnabled)
             {

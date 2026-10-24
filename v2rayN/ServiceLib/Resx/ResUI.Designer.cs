@@ -5471,5 +5471,118 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("UpgradeAppNotExistTip", resourceCulture);
             }
         }
+            public static string TbApps {
+            get {
+                return ResourceManager.GetString("TbApps", resourceCulture);
+            }
+        }
+
+        public static string TbAppsHint {
+            get {
+                return ResourceManager.GetString("TbAppsHint", resourceCulture);
+            }
+        }
+
+        public static string TbAppName {
+            get {
+                return ResourceManager.GetString("TbAppName", resourceCulture);
+            }
+        }
+
+        public static string TbAppRule {
+            get {
+                return ResourceManager.GetString("TbAppRule", resourceCulture);
+            }
+        }
+
+        public static string TbAppConnections {
+            get {
+                return ResourceManager.GetString("TbAppConnections", resourceCulture);
+            }
+        }
+
+        public static string TbAppUpload {
+            get {
+                return ResourceManager.GetString("TbAppUpload", resourceCulture);
+            }
+        }
+
+        public static string TbAppDownload {
+            get {
+                return ResourceManager.GetString("TbAppDownload", resourceCulture);
+            }
+        }
+
+        public static string TbAppSpeed {
+            get {
+                return ResourceManager.GetString("TbAppSpeed", resourceCulture);
+            }
+        }
+
+        public static string menuAppBlock {
+            get {
+                return ResourceManager.GetString("menuAppBlock", resourceCulture);
+            }
+        }
+
+        public static string menuAppDirect {
+            get {
+                return ResourceManager.GetString("menuAppDirect", resourceCulture);
+            }
+        }
+
+        public static string menuAppProxy {
+            get {
+                return ResourceManager.GetString("menuAppProxy", resourceCulture);
+            }
+        }
+
+        public static string menuAppReset {
+            get {
+                return ResourceManager.GetString("menuAppReset", resourceCulture);
+            }
+        }
+
+        public static string menuAppCloseConnections {
+            get {
+                return ResourceManager.GetString("menuAppCloseConnections", resourceCulture);
+            }
+        }
+
+        public static string menuAppResetStats {
+            get {
+                return ResourceManager.GetString("menuAppResetStats", resourceCulture);
+            }
+        }
+
+        public static string TbAppRuleDefault {
+            get {
+                return ResourceManager.GetString("TbAppRuleDefault", resourceCulture);
+            }
+        }
+
+        public static string TbAppRuleBlock {
+            get {
+                return ResourceManager.GetString("TbAppRuleBlock", resourceCulture);
+            }
+        }
+
+        public static string TbAppRuleDirect {
+            get {
+                return ResourceManager.GetString("TbAppRuleDirect", resourceCulture);
+            }
+        }
+
+        public static string TbAppRuleProxy {
+            get {
+                return ResourceManager.GetString("TbAppRuleProxy", resourceCulture);
+            }
+        }
+
+        public static string TbAppRuleSaved {
+            get {
+                return ResourceManager.GetString("TbAppRuleSaved", resourceCulture);
+            }
+        }
     }
 }

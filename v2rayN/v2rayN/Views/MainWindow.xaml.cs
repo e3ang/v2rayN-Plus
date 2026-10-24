@@ -385,6 +385,10 @@ public partial class MainWindow
                 this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabMsgView.Visibility).DisposeWith(currentLayoutDisposables);
                 this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabClashProxies.Visibility).DisposeWith(currentLayoutDisposables);
                 this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabClashConnections.Visibility).DisposeWith(currentLayoutDisposables);
+                this.WhenAnyValue(v => v.ViewModel.AppTrafficViewModel)
+                    .Subscribe(vm => ViewHost.Show(tabAppTraffic, vm))
+                    .DisposeWith(currentLayoutDisposables);
+                this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabAppTraffic.Visibility).DisposeWith(currentLayoutDisposables);
                 this.Bind(ViewModel, vm => vm.TabMainSelectedIndex, v => v.tabMain.SelectedIndex).DisposeWith(currentLayoutDisposables);
                 break;
 
@@ -404,6 +408,10 @@ public partial class MainWindow
                 this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabMsgView1.Visibility).DisposeWith(currentLayoutDisposables);
                 this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabClashProxies1.Visibility).DisposeWith(currentLayoutDisposables);
                 this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabClashConnections1.Visibility).DisposeWith(currentLayoutDisposables);
+                this.WhenAnyValue(v => v.ViewModel.AppTrafficViewModel)
+                    .Subscribe(vm => ViewHost.Show(tabAppTraffic1, vm))
+                    .DisposeWith(currentLayoutDisposables);
+                this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabAppTraffic1.Visibility).DisposeWith(currentLayoutDisposables);
                 this.Bind(ViewModel, vm => vm.TabMainSelectedIndex, v => v.tabMain1.SelectedIndex).DisposeWith(currentLayoutDisposables);
                 break;
 
@@ -423,6 +431,10 @@ public partial class MainWindow
                     .DisposeWith(currentLayoutDisposables);
                 this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabClashProxies2.Visibility).DisposeWith(currentLayoutDisposables);
                 this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabClashConnections2.Visibility).DisposeWith(currentLayoutDisposables);
+                this.WhenAnyValue(v => v.ViewModel.AppTrafficViewModel)
+                    .Subscribe(vm => ViewHost.Show(tabAppTraffic2, vm))
+                    .DisposeWith(currentLayoutDisposables);
+                this.OneWayBind(ViewModel, vm => vm.ShowClashUI, v => v.tabAppTraffic2.Visibility).DisposeWith(currentLayoutDisposables);
                 this.Bind(ViewModel, vm => vm.TabMainSelectedIndex, v => v.tabMain2.SelectedIndex).DisposeWith(currentLayoutDisposables);
                 break;
         }
