@@ -8,6 +8,12 @@ public partial class UpdateService(Config config, Func<bool, string, Task> updat
 
     public async Task CheckUpdateGuiN(bool preRelease, bool blProxy = true, CancellationToken cancellationToken = default)
     {
+        if (!CoreInfoManager.Instance.IsCheckUpdateSupported(ECoreType.v2rayN))
+        {
+            await UpdateFunc(false, ResUI.MsgNotSupport);
+            return;
+        }
+
         var url = string.Empty;
         var fileName = string.Empty;
 

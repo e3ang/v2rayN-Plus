@@ -76,7 +76,7 @@ public sealed class CoreInfoManager
     {
         return type switch
         {
-            ECoreType.v2rayN => !Utils.IsPackagedInstall(),
+            ECoreType.v2rayN => Global.AppUpdateRepo.IsNotEmpty() && !Utils.IsPackagedInstall(),
             ECoreType.Xray => true,
             ECoreType.mihomo => true,
             ECoreType.sing_box => true,
