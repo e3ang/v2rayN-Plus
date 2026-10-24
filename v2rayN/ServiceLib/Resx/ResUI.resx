@@ -2022,4 +2022,13 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="MsgAutoSwitched" xml:space="preserve">
     <value>Auto-switched to {0} ({1} ms)</value>
   </data>
+  <data name="menuAddAmneziaWgServer" xml:space="preserve">
+    <value>Add [AmneziaWG / WireGuard .conf] (mihomo)</value>
+  </data>
+  <data name="MsgAwgConverted" xml:space="preserve">
+    <value>AmneziaWG config converted to a mihomo profile</value>
+  </data>
+  <data name="MsgAwgInvalid" xml:space="preserve">
+    <value>Not a valid WireGuard / AmneziaWG .conf (needs [Interface] PrivateKey and [Peer] PublicKey, Endpoint)</value>
+  </data>
 </root>

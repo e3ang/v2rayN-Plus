@@ -5648,5 +5648,22 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("MsgAutoSwitched", resourceCulture);
             }
         }
+            public static string menuAddAmneziaWgServer {
+            get {
+                return ResourceManager.GetString("menuAddAmneziaWgServer", resourceCulture);
+            }
+        }
+
+        public static string MsgAwgConverted {
+            get {
+                return ResourceManager.GetString("MsgAwgConverted", resourceCulture);
+            }
+        }
+
+        public static string MsgAwgInvalid {
+            get {
+                return ResourceManager.GetString("MsgAwgInvalid", resourceCulture);
+            }
+        }
     }
 }

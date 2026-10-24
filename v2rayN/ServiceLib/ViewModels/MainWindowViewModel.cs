@@ -35,6 +35,7 @@ public partial class MainWindowViewModel : MyReactiveObject
     public ReactiveCommand<RxVoid, RxVoid> AddNaiveServerCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> AddMasqueServerCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> AddSshServerCmd { get; }
+    public ReactiveCommand<RxVoid, RxVoid> AddAmneziaWgServerCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> AddCustomServerCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> AddCustomOutboundServerCmd { get; }
     public ReactiveCommand<RxVoid, RxVoid> AddPolicyGroupServerCmd { get; }
@@ -151,6 +152,10 @@ public partial class MainWindowViewModel : MyReactiveObject
         AddSshServerCmd = ReactiveCommand.CreateFromTask(async () =>
         {
             await AddServerAsync(EConfigType.SSH);
+        });
+        AddAmneziaWgServerCmd = ReactiveCommand.CreateFromTask(async () =>
+        {
+            await AddServerAsync(EConfigType.Custom, ECoreType.mihomo);
         });
         AddCustomServerCmd = ReactiveCommand.CreateFromTask(async () =>
         {
@@ -458,12 +463,13 @@ public partial class MainWindowViewModel : MyReactiveObject
 
     #region Add Servers
 
-    public async Task AddServerAsync(EConfigType eConfigType)
+    public async Task AddServerAsync(EConfigType eConfigType, ECoreType? coreType = null)
     {
         ProfileItem item = new()
         {
             Subid = _config.SubIndexId,
             ConfigType = eConfigType,
+            CoreType = coreType,
             IsSub = false,
         };
 

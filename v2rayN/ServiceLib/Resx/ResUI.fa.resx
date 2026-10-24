@@ -1890,4 +1890,13 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="MsgAutoSwitched" xml:space="preserve">
     <value>خودکار به {0} ({1} میلی‌ثانیه) تغییر کرد</value>
   </data>
+  <data name="menuAddAmneziaWgServer" xml:space="preserve">
+    <value>افزودن [AmneziaWG / فایل conf وایرگارد] (mihomo)</value>
+  </data>
+  <data name="MsgAwgConverted" xml:space="preserve">
+    <value>کانفیگ AmneziaWG به پروفایل mihomo تبدیل شد</value>
+  </data>
+  <data name="MsgAwgInvalid" xml:space="preserve">
+    <value>فایل conf معتبر WireGuard / AmneziaWG نیست (بخش [Interface] با PrivateKey و [Peer] با PublicKey و Endpoint لازم است)</value>
+  </data>
 </root>

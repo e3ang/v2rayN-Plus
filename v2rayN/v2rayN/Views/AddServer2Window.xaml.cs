@@ -30,7 +30,7 @@ public partial class AddServer2Window
 
             ViewModel.BrowseConfigFileInteraction.RegisterHandler(interaction =>
             {
-                if (UI.OpenFileDialog(out var fileName, "Config|*.json|YAML|*.yaml;*.yml|All|*.*") != true)
+                if (UI.OpenFileDialog(out var fileName, "Config|*.json;*.yaml;*.yml;*.conf|JSON|*.json|YAML|*.yaml;*.yml|WireGuard / AmneziaWG|*.conf|All|*.*") != true)
                 {
                     interaction.SetOutput(null);
                     return;
