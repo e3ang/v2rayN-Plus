@@ -179,6 +179,27 @@ public class Utils
         return $"{size:f1} {units[unitIndex]}";
     }
 
+    /// <summary>
+    /// Like HumanFy, but for a raw byte count (HumanFy takes kilobytes, as the core statistics report).
+    /// </summary>
+    public static string HumanFyBytes(long bytes)
+    {
+        if (bytes < 1024)
+        {
+            return $"{Math.Max(bytes, 0)} B";
+        }
+
+        string[] units = ["KB", "MB", "GB", "TB", "PB"];
+        var unitIndex = 0;
+        var size = bytes / 1024.0;
+        while (size >= 1024 && unitIndex < units.Length - 1)
+        {
+            size /= 1024;
+            unitIndex++;
+        }
+        return $"{size:f1} {units[unitIndex]}";
+    }
+
     public static string UrlEncode(string url)
     {
         return Uri.EscapeDataString(url);

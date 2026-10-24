@@ -133,10 +133,10 @@ public partial class AppTrafficViewModel : MyReactiveObject
             app.Upload += t.Up;
             app.Download += t.Down;
             app.Connections = t.Count;
-            app.UploadTraffic = Utils.HumanFy((long)app.Upload);
-            app.DownloadTraffic = Utils.HumanFy((long)app.Download);
+            app.UploadTraffic = Utils.HumanFyBytes((long)app.Upload);
+            app.DownloadTraffic = Utils.HumanFyBytes((long)app.Download);
             app.Speed = t.Up + t.Down > 0
-                ? $"↑{Utils.HumanFy((long)t.Up)}/s ↓{Utils.HumanFy((long)t.Down)}/s"
+                ? $"↑{Utils.HumanFyBytes((long)t.Up)}/s ↓{Utils.HumanFyBytes((long)t.Down)}/s"
                 : string.Empty;
         }
     }
@@ -246,8 +246,8 @@ public partial class AppTrafficViewModel : MyReactiveObject
         {
             app.Upload = 0;
             app.Download = 0;
-            app.UploadTraffic = Utils.HumanFy(0);
-            app.DownloadTraffic = Utils.HumanFy(0);
+            app.UploadTraffic = Utils.HumanFyBytes(0);
+            app.DownloadTraffic = Utils.HumanFyBytes(0);
         }
     }
 }

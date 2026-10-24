@@ -46,9 +46,9 @@ public record SubscriptionUsage(long Upload, long Download, long Total, long Exp
     public string Format(DateTimeOffset now)
     {
         var sb = new StringBuilder();
-        sb.Append(Utils.HumanFy(Used));
+        sb.Append(Utils.HumanFyBytes(Used));
         sb.Append(" / ");
-        sb.Append(Total > 0 ? Utils.HumanFy(Total) : "∞");
+        sb.Append(Total > 0 ? Utils.HumanFyBytes(Total) : "∞");
 
         if (Expire > 0)
         {
