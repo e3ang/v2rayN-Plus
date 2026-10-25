@@ -5,9 +5,9 @@ public class Global
     public const string AppName = "v2rayN";
     public const string GithubUrl = "https://github.com";
 
-    // GitHub "owner/repo" this custom build updates itself from; empty disables app self-update
-    // so the official 2dust release never replaces the SSH / per-app build. Core updates are unaffected.
-    public const string AppUpdateRepo = "";
+    // GitHub "owner/repo" this build updates itself from, so the official 2dust release never
+    // replaces it; empty disables app self-update. Core updates are unaffected.
+    public const string AppUpdateRepo = "e3ang/v2rayN-Plus";
     public const string GithubApiUrl = "https://api.github.com/repos";
     public const string GeoUrl = "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/{0}.dat";
     public const string SingboxRulesetUrl = @"https://raw.githubusercontent.com/2dust/sing-box-rules/rule-set-{0}/{1}.srs";
@@ -250,7 +250,8 @@ public class Global
         { EConfigType.TUIC, "tuic://" },
         { EConfigType.WireGuard, "wireguard://" },
         { EConfigType.Anytls, "anytls://" },
-        { EConfigType.Naive, "naive://" }
+        { EConfigType.Naive, "naive://" },
+        { EConfigType.SSH, "ssh://" },
     };
 
     public static readonly Dictionary<EConfigType, string> ProtocolTypes = new()

@@ -19,6 +19,20 @@ public static class AmneziaWgFmt
                && text.Contains("[Peer]", StringComparison.OrdinalIgnoreCase);
     }
 
+    /// <summary>
+    /// A WireGuard .conf carrying AmneziaWG obfuscation fields (plain WireGuard can't connect to it).
+    /// </summary>
+    public static bool IsAmneziaConf(string text)
+    {
+        return IsWireGuardConf(text)
+               && Regex.IsMatch(text, @"^\s*(Jc|Jmin|Jmax|S[1-4]|H[1-4]|I[1-5])\s*=", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+    }
+
+    public static string? GetEndpoint(string confText)
+    {
+        return ParseIni(confText).GetValueOrDefault("peer")?.GetValueOrDefault("Endpoint");
+    }
+
     public static string? ToMihomoYaml(string confText)
     {
         var sections = ParseIni(confText);

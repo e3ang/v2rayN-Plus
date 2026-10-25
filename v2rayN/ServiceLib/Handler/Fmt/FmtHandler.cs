@@ -20,6 +20,9 @@ public class FmtHandler
                 EConfigType.WireGuard => WireguardFmt.ToUri(item),
                 EConfigType.Anytls => AnytlsFmt.ToUri(item),
                 EConfigType.Naive => NaiveFmt.ToUri(item),
+                EConfigType.SSH => SshFmt.ToUri(item),
+                // AmneziaWG profiles share the original .conf, which pastes back in as AmneziaWG
+                EConfigType.Custom => item.GetProtocolExtra().AwgConf,
                 _ => null,
             };
 
@@ -94,6 +97,10 @@ public class FmtHandler
                      || str.StartsWith(Global.NaiveQuicProtocolShare))
             {
                 return NaiveFmt.Resolve(str, out msg);
+            }
+            else if (str.StartsWith(Global.ProtocolShares[EConfigType.SSH]))
+            {
+                return SshFmt.Resolve(str, out msg);
             }
             else
             {

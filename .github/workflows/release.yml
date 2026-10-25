@@ -1,0 +1,61 @@
+name: release
+
+# Push a tag (e.g. 7.25.7) or run manually to build the Windows x64 zip and publish a release.
+# The tag must be newer than <Version> in v2rayN/Directory.Build.props for in-app update to offer it.
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  windows-x64:
+    runs-on: windows-latest
+    env:
+      TAG: ${{ inputs.tag || github.ref_name }}
+      PKG: v2rayN-windows-64
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Cores and rule files (same bundle as upstream)
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          Invoke-WebRequest -Uri "https://github.com/2dust/v2rayN-core-bin/raw/refs/heads/master/$env:PKG.zip" -OutFile core-bin.zip
+          Expand-Archive -Force core-bin.zip .
+
+      - name: Publish
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          dotnet publish ./v2rayN/v2rayN/v2rayN.csproj -c Release -r win-x64 -p:SelfContained=true -p:EnableWindowsTargeting=true -o $env:PKG
+          dotnet publish ./v2rayN/AmazTool/AmazTool.csproj -c Release -r win-x64 -p:SelfContained=true -p:PublishTrimmed=true -p:EnableWindowsTargeting=true -o $env:PKG
+
+      - name: Package
+        shell: pwsh
+        run: 7z a -tZip "$env:PKG.zip" $env:PKG -mx5
+
+      - name: Release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view $env:TAG 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload $env:TAG "$env:PKG.zip" --clobber
+          } else {
+            gh release create $env:TAG "$env:PKG.zip" --title "v2rayN-Plus $env:TAG" --notes "Windows x64, cores included. Extract and run v2rayN.exe. See README for the added features."
+          }

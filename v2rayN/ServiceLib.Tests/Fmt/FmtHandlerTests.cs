@@ -19,6 +19,7 @@ public class FmtHandlerTests
         [EConfigType.WireGuard] = CreateWireguardProfile,
         [EConfigType.Anytls] = CreateAnytlsProfile,
         [EConfigType.Naive] = () => CreateNaiveProfile(false),
+        [EConfigType.SSH] = CreateSshProfile,
     };
 
     [Test]
@@ -538,6 +539,19 @@ public class FmtHandlerTests
         });
 
         return item;
+    }
+
+    private static ProfileItem CreateSshProfile()
+    {
+        return new ProfileItem
+        {
+            ConfigType = EConfigType.SSH,
+            Remarks = "ssh demo",
+            Address = "ssh.example",
+            Port = 2222,
+            Username = "root",
+            Password = "päss:word@/?#&=+",
+        };
     }
 
     private static ProfileItem CreateNaiveProfile(bool quic)

@@ -587,6 +587,25 @@ public static class ConfigHandler
         return 0;
     }
 
+    /// <summary>
+    /// Add an AmneziaWG .conf as a custom mihomo profile (Xray / sing-box have no AmneziaWG)
+    /// </summary>
+    public static async Task<int> AddAmneziaWgServer(Config config, ProfileItem profileItem, string confText)
+    {
+        var yaml = AmneziaWgFmt.ToMihomoYaml(confText);
+        if (yaml.IsNullOrEmpty())
+        {
+            return -1;
+        }
+        var yamlFile = Utils.GetTempPath($"{Utils.GetGuid()}.yaml");
+        await File.WriteAllTextAsync(yamlFile, yaml);
+
+        profileItem.Address = yamlFile;
+        profileItem.CoreType = ECoreType.mihomo;
+        profileItem.SetProtocolExtra(profileItem.GetProtocolExtra() with { AwgConf = confText.Trim() });
+        return await AddCustomServer(config, profileItem, true);
+    }
+
     public static async Task<int> AddCustomOutboundServer(Config config, ProfileItem profileItem, bool blDelete, bool toFile = true)
     {
         var fileName = profileItem.Address;
@@ -2026,6 +2045,18 @@ public static class ConfigHandler
               && strData.Contains("[Peer]", StringComparison.OrdinalIgnoreCase)))
         {
             return -1;
+        }
+        if (AmneziaWgFmt.IsAmneziaConf(strData))
+        {
+            var awgItem = new ProfileItem
+            {
+                Subid = subid,
+                IsSub = isSub,
+                Remarks = $"AmneziaWG {AmneziaWgFmt.GetEndpoint(strData)}",
+            };
+            var ret = await AddAmneziaWgServer(config, awgItem, strData);
+            await SaveConfig(config);
+            return ret == 0 ? 1 : -1;
         }
         var lstServer = WireguardFmt.ResolveConfig(strData);
         if (lstServer?.Count > 0)

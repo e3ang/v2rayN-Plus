@@ -1,80 +1,50 @@
-# v2rayN
+# v2rayN-Plus
 
-### A GUI client for Windows, Linux and macOS. Support [Xray](https://github.com/XTLS/Xray-core) and [sing-box](https://github.com/SagerNet/sing-box) and [others](https://github.com/2dust/v2rayN/wiki/List-of-supported-cores)
+A fork of [2dust/v2rayN](https://github.com/2dust/v2rayN) with the features below added. Everything else works as in v2rayN.
 
-[![CodeFactor](https://www.codefactor.io/repository/github/2dust/v2rayn/badge)](https://www.codefactor.io/repository/github/2dust/v2rayn)
-[![Release](https://img.shields.io/github/v/release/2dust/v2rayN?logo=github&label=Release)](https://github.com/2dust/v2rayN/releases)
-[![Downloads](https://img.shields.io/github/downloads/2dust/v2rayN/latest/total?logo=github&label=Downloads)](https://github.com/2dust/v2rayN/releases)
-[![Telegram](https://img.shields.io/badge/Telegram-Chat-26A5E4?logo=telegram)](https://t.me/v2rayn)
- 
-[![Windows](https://img.shields.io/badge/Windows-supported-0078D6?logo=windows)](https://github.com/2dust/v2rayN) 
-[![Linux](https://img.shields.io/badge/Linux-supported-FCC624?logo=linux&logoColor=000)](https://github.com/2dust/v2rayN) 
-[![macOS](https://img.shields.io/badge/macOS-supported-000000?logo=apple)](https://github.com/2dust/v2rayN) 
-[![GPG Signed](https://img.shields.io/badge/GPG-signed-4B32C3?logo=gnuprivacyguard)](https://github.com/2dust/v2rayN)
+Download: [Releases](https://github.com/e3ang/v2rayN-Plus/releases) (Windows x64, `v2rayN-windows-64.zip`, cores included).
 
+## Added features
 
----
+### SSH tunnel
+Servers > Add [SSH]. Enter the host, port, user, and then either a password or a private key (pasted, or a path such as `~/.ssh/id_ed25519`). Optional settings: host key pinning, host key algorithms, client version. Runs on the sing-box core, and works inside proxy chains.
 
-## Download / 下载
+### Apps tab (per-app traffic)
+Lists every app that goes through v2rayN with its connections, upload, download and live speed. Right-click an app or use the toolbar to:
+- block its internet
+- send it direct (bypass the proxy)
+- always send it through the proxy
+- remove the rule
 
-Download the latest release here:
+Rules are saved as `AppControl` process rules at the top of the active routing set, and the core reloads automatically. Requires the sing-box core: an SSH server, any server set to sing-box, or TUN mode. In system-proxy mode, only apps that use the system proxy are visible.
 
-在这里下载最新版本：
+### Auto switch
+Settings > Auto switch. Every minute the active server is checked. If it stops responding, all servers are tested by real delay right away and the fastest working one becomes active. A full test also runs every N minutes (default 30). The server only changes if the new one is at least X% faster (default 30%). This can be limited to the selected subscription.
 
-[https://github.com/2dust/v2rayN/releases](https://github.com/2dust/v2rayN/releases)
+### Subscription usage and expiry
+Reads the `subscription-userinfo` header sent by 3x-ui, Marzban, Remnawave and similar panels. Shows used / total traffic and days left next to each subscription and in the subscription list.
 
+### HWID header
+Edit subscription > "Send device ID (HWID)". Sends `x-hwid`, `x-device-os`, `x-ver-os` and `x-device-model`, the same headers Happ sends, for panels that limit the number of devices. The ID is a hash of the OS machine ID: stable, and it does not expose the machine ID itself. Headers you set manually take priority.
 
-> [!TIP]
-> v2rayN is the desktop version. For the mobile version, please visit the v2rayNG \
-> v2rayN 是电脑版，手机版请访问 v2rayNG
->
-> https://github.com/2dust/v2rayNG
+### AmneziaWG
+Servers > Add [AmneziaWG / WireGuard .conf]. Browse to a `.conf` exported by AmneziaVPN or wg-quick. Xray and sing-box do not support AmneziaWG, so the file is converted into a mihomo profile, keeping all `Jc`, `Jmin`, `Jmax`, `S1`-`S4`, `H1`-`H4` and `I1`-`I5` values. The Apps tab rules and auto switch do not apply to these profiles.
 
----
+### Copy / paste
+- SSH servers share as `ssh://user:pass@host:port?pk=<key>&hk=<host key>#name`. These links paste back in through the usual import from clipboard. Hiddify-style `pk` / `hk` links and the long sing-box parameter names are also accepted.
+- Pasting an AmneziaWG `.conf` text imports it as AmneziaWG (mihomo), not as plain WireGuard. Exporting the share link of that profile gives the original `.conf` back.
 
-## Documentation / 使用文档
+### Updates
+In-app updates of v2rayN come from this repository's releases, so the official build never replaces this one. Core updates (Xray, sing-box, mihomo) still come from upstream.
 
-Read the Wiki for usage guides and configuration details.
+## Build
 
-请阅读 Wiki 获取使用说明和配置教程。
-
-[https://github.com/2dust/v2rayN/wiki](https://github.com/2dust/v2rayN/wiki)
-
----
-
-## Supported Platforms / 支持平台
-
-| Platform / 平台 | x64 | x86 | arm64 | riscv64 | loong64 |
-| --- | --- | --- | --- | --- | --- |
-| Windows | ✅ | ✅ | ✅ | - | - |
-| Linux | ✅ | - | ✅ | ✅ | ✅ |
-| macOS | ✅ | - | ✅ | - | - |
-
-Minimum OS requirements: [Release files introduction](https://github.com/2dust/v2rayN/wiki/Release-files-introduction) / 最低系统要求：[发布文件介绍](https://github.com/2dust/v2rayN/wiki/Release-files-introduction)
-
----
-
-## GPG Verification / GPG 签名校验
-
-Release files are signed with GPG to verify authenticity and integrity, helping prevent mirror, ISP, or CDN hijacking.
-
-发布文件已使用 GPG 签名，可用于校验文件真实性与完整性，预防镜像站、运营商或 CDN 劫持。
-
-### Fingerprint / 公钥指纹
-
-```text
-7694 5E9F 3E9A 168F 8070 F195 805D 661C
-134D FAF6 8903 C199 463C 31E5 AE90 3AE0
+```
+dotnet publish v2rayN/v2rayN/v2rayN.csproj -c Release -r win-x64 -p:SelfContained=true
 ```
 
----
+Requires the .NET 10 SDK. Pushing a tag such as `7.25.7` builds the Windows zip and publishes the release (`.github/workflows/release.yml`).
 
-## Community / 社区
+## License
 
-Telegram Group / Telegram 群组：
-
-[https://t.me/v2rayN](https://t.me/v2rayN)
-
-Telegram Channel / Telegram 频道：
-
-[https://t.me/github_2dust](https://t.me/github_2dust)
+GPL-3.0, same as v2rayN. See [LICENSE](LICENSE).

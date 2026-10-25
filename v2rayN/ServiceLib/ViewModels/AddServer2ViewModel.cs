@@ -92,30 +92,27 @@ public partial class AddServer2ViewModel : MyReactiveObject, ICloseable
         item.Address = fileName;
 
         // AmneziaWG / WireGuard .conf: no Xray / sing-box support, convert to a mihomo config
-        var deleteSource = false;
+        int result;
         if (item.ConfigType == EConfigType.Custom && File.Exists(fileName)
             && AmneziaWgFmt.IsWireGuardConf(await File.ReadAllTextAsync(fileName)))
         {
-            var yaml = AmneziaWgFmt.ToMihomoYaml(await File.ReadAllTextAsync(fileName));
-            if (yaml.IsNullOrEmpty())
-            {
-                NoticeManager.Instance.Enqueue(ResUI.MsgAwgInvalid);
-                return;
-            }
-            var yamlFile = Utils.GetTempPath($"{Utils.GetGuid()}.yaml");
-            await File.WriteAllTextAsync(yamlFile, yaml);
-            item.Address = yamlFile;
-            item.CoreType = ECoreType.mihomo;
-            CoreType = nameof(ECoreType.mihomo);
             if (item.Remarks.IsNullOrEmpty())
             {
                 item.Remarks = Path.GetFileNameWithoutExtension(fileName);
             }
-            deleteSource = true;
+            result = await ConfigHandler.AddAmneziaWgServer(_config, item, await File.ReadAllTextAsync(fileName));
+            if (result != 0)
+            {
+                NoticeManager.Instance.Enqueue(ResUI.MsgAwgInvalid);
+                return;
+            }
+            CoreType = nameof(ECoreType.mihomo);
             NoticeManager.Instance.Enqueue(ResUI.MsgAwgConverted);
         }
-
-        var result = item.ConfigType == EConfigType.Outbound ? await ConfigHandler.AddCustomOutboundServer(_config, item, false) : await ConfigHandler.AddCustomServer(_config, item, deleteSource);
+        else
+        {
+            result = item.ConfigType == EConfigType.Outbound ? await ConfigHandler.AddCustomOutboundServer(_config, item, false) : await ConfigHandler.AddCustomServer(_config, item, false);
+        }
         if (result == 0)
         {
             NoticeManager.Instance.Enqueue(ResUI.SuccessfullyImportedCustomServer);

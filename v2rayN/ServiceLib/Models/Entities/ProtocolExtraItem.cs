@@ -58,6 +58,9 @@ public record ProtocolExtraItem
     public string? SshHostKeyAlgorithms { get; init; }
     public string? SshClientVersion { get; init; }
 
+    // original AmneziaWG .conf of a custom mihomo profile, used for sharing
+    public string? AwgConf { get; init; }
+
     // group profile
     public string? GroupType { get; init; }
     public string? ChildItems { get; init; }
