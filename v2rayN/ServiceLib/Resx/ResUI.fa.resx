@@ -1899,4 +1899,13 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="MsgAwgInvalid" xml:space="preserve">
     <value>فایل conf معتبر WireGuard / AmneziaWG نیست (بخش [Interface] با PrivateKey و [Peer] با PublicKey و Endpoint لازم است)</value>
   </data>
+  <data name="MsgSshFrozenReconnecting" xml:space="preserve">
+    <value>تونل SSH قفل شد، در حال اتصال دوباره…</value>
+  </data>
+  <data name="MsgSshReconnected" xml:space="preserve">
+    <value>تونل SSH دوباره وصل شد</value>
+  </data>
+  <data name="TbSshWatchdog" xml:space="preserve">
+    <value>اتصال دوبارهٔ خودکار SSH وقتی قفل می‌شود</value>
+  </data>
 </root>

@@ -95,6 +95,7 @@ public partial class MainWindowViewModel : MyReactiveObject
     {
         _config = AppManager.Instance.Config;
         AppTrafficViewModel = new(Reload);
+        new SshWatchdogService(_config, Reload).Start();
         BlIsWindows = Utils.IsWindows();
         MainGirdOrientation = _config.UiItem.MainGirdOrientation;
 

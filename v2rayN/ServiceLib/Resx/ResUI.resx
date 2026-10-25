@@ -2031,4 +2031,13 @@ The "Get Certificate" action may fail if a self-signed certificate is used or if
   <data name="MsgAwgInvalid" xml:space="preserve">
     <value>Not a valid WireGuard / AmneziaWG .conf (needs [Interface] PrivateKey and [Peer] PublicKey, Endpoint)</value>
   </data>
+  <data name="MsgSshFrozenReconnecting" xml:space="preserve">
+    <value>SSH tunnel froze, reconnecting…</value>
+  </data>
+  <data name="MsgSshReconnected" xml:space="preserve">
+    <value>SSH tunnel reconnected</value>
+  </data>
+  <data name="TbSshWatchdog" xml:space="preserve">
+    <value>Reconnect SSH when it freezes</value>
+  </data>
 </root>

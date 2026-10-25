@@ -5665,5 +5665,22 @@ namespace ServiceLib.Resx {
                 return ResourceManager.GetString("MsgAwgInvalid", resourceCulture);
             }
         }
+            public static string MsgSshFrozenReconnecting {
+            get {
+                return ResourceManager.GetString("MsgSshFrozenReconnecting", resourceCulture);
+            }
+        }
+
+        public static string MsgSshReconnected {
+            get {
+                return ResourceManager.GetString("MsgSshReconnected", resourceCulture);
+            }
+        }
+
+        public static string TbSshWatchdog {
+            get {
+                return ResourceManager.GetString("TbSshWatchdog", resourceCulture);
+            }
+        }
     }
 }

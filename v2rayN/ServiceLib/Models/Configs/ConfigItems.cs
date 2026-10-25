@@ -164,6 +164,9 @@ public class AutoSwitchItem
 
     // test only servers of the subscription shown in the list, otherwise all servers
     public bool CurrentSubOnly { get; set; } = true;
+
+    // reload the core when an active SSH tunnel stops answering
+    public bool SshWatchdog { get; set; } = true;
 }
 
 [Serializable]
