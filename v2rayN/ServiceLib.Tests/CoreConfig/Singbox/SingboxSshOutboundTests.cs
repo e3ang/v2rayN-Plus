@@ -91,4 +91,33 @@ public class SingboxSshOutboundTests
             o.tag == Global.ProxyTag && o.type == "ssh" &&
             (o.detour ?? string.Empty).StartsWith("chain-proxy-1-", StringComparison.Ordinal));
     }
+
+    [Test]
+    public async Task Ssh_ResolvesDestinationsToIpv4BeforeRouting()
+    {
+        var config = CoreConfigTestFactory.CreateConfig(ECoreType.sing_box);
+        CoreConfigTestFactory.BindAppManagerConfig(config);
+        var context = CoreConfigTestFactory.CreateContext(config, CoreConfigTestFactory.CreateSshNode(), ECoreType.sing_box);
+
+        var result = new CoreConfigSingboxService(context).GenerateClientConfigContent();
+        var cfg = JsonUtils.Deserialize<SingboxConfig>(result.Data!.ToString())!;
+
+        var resolve = cfg.route.rules.FindIndex(r => r.action == "resolve" && r.strategy == "ipv4_only");
+        var firstRoute = cfg.route.rules.FindIndex(r => r.outbound.IsNotEmpty());
+        await (resolve >= 0).Should().BeTrue();
+        await (resolve < firstRoute).Should().BeTrue();
+    }
+
+    [Test]
+    public async Task NonSsh_DoesNotForceIpv4()
+    {
+        var config = CoreConfigTestFactory.CreateConfig(ECoreType.sing_box);
+        CoreConfigTestFactory.BindAppManagerConfig(config);
+        var context = CoreConfigTestFactory.CreateContext(config, CoreConfigTestFactory.CreateSocksNode(ECoreType.sing_box), ECoreType.sing_box);
+
+        var result = new CoreConfigSingboxService(context).GenerateClientConfigContent();
+        var cfg = JsonUtils.Deserialize<SingboxConfig>(result.Data!.ToString())!;
+
+        await cfg.route.rules.Any(r => r.action == "resolve").Should().BeFalse();
+    }
 }

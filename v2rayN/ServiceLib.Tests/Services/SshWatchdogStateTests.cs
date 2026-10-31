@@ -13,17 +13,18 @@ public class SshWatchdogStateTests
     }
 
     [Test]
-    public async Task TwoFailures_Reconnect_ThenRecovered()
+    public async Task ThreeFailures_Reconnect_ThenRecovered()
     {
         var s = new SshWatchdogState();
         await s.OnProbe(false, T0).Should().BeEqualTo(SshWatchdogAction.None);
-        await s.OnProbe(false, T0.AddSeconds(5)).Should().BeEqualTo(SshWatchdogAction.Reconnect);
-        await s.OnProbe(true, T0.AddSeconds(10)).Should().BeEqualTo(SshWatchdogAction.Recovered);
-        await s.OnProbe(true, T0.AddSeconds(15)).Should().BeEqualTo(SshWatchdogAction.None);
+        await s.OnProbe(false, T0.AddSeconds(5)).Should().BeEqualTo(SshWatchdogAction.None);
+        await s.OnProbe(false, T0.AddSeconds(10)).Should().BeEqualTo(SshWatchdogAction.Reconnect);
+        await s.OnProbe(true, T0.AddSeconds(15)).Should().BeEqualTo(SshWatchdogAction.Recovered);
+        await s.OnProbe(true, T0.AddSeconds(20)).Should().BeEqualTo(SshWatchdogAction.None);
     }
 
     [Test]
-    public async Task LongFreeze_KeepsRetrying_NotFasterThanGap()
+    public async Task LongFreeze_RetriesAtMostEvery30Seconds()
     {
         var s = new SshWatchdogState();
         var reconnects = 0;
@@ -34,7 +35,6 @@ public class SshWatchdogStateTests
                 reconnects++;
             }
         }
-        // every 2 probes (10 s) while frozen
-        await reconnects.Should().BeEqualTo(12);
+        await reconnects.Should().BeEqualTo(4);
     }
 }

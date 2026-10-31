@@ -9,7 +9,9 @@ Download: [Releases](https://github.com/e3ang/v2rayN-Plus/releases) (Windows x64
 ### SSH tunnel
 Servers > Add [SSH]. Enter the host, port, user, and then either a password or a private key (pasted, or a path such as `~/.ssh/id_ed25519`). Optional settings: host key pinning, host key algorithms, client version. Runs on the sing-box core, and works inside proxy chains.
 
-Some networks freeze SSH connections for tens of seconds. While an SSH server is active, v2rayN checks the tunnel every 5 seconds. If two checks in a row fail, it opens a fresh SSH session, and keeps retrying every 10 seconds until the path opens. It can be switched off in Settings > Auto switch.
+Destinations are sent to the SSH server as IPv4 addresses, because a server with a flaky IPv6 route would otherwise stall the tunnel.
+
+Some networks freeze SSH connections for tens of seconds. While an SSH server is active, v2rayN checks the tunnel every 5 seconds. If three checks in a row fail, it opens a fresh SSH session, and retries every 30 seconds until the path opens. It can be switched off in Settings > Auto switch.
 
 ### Apps tab (per-app traffic)
 Lists every app that goes through v2rayN with its connections, upload, download and live speed. Right-click an app or use the toolbar to:

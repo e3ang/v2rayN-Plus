@@ -159,6 +159,17 @@ public partial class CoreConfigSingboxService
                 }
             }
 
+            // sshd dials a forwarded domain itself and can sit on a dead IPv6 route, stalling the
+            // tunnel while the server's IPv4 is fine, so hand it IPv4 addresses instead of names
+            if (context.Node.ConfigType == EConfigType.SSH)
+            {
+                _coreConfig.route.rules.Add(new()
+                {
+                    action = "resolve",
+                    strategy = "ipv4_only",
+                });
+            }
+
             var hostsDomains = new List<string>();
             if (rawDNSItem is not { Enabled: true })
             {

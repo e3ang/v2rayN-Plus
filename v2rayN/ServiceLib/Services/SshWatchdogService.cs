@@ -12,7 +12,7 @@ public class SshWatchdogService(Config config, Func<Task> reload)
     private const string _tag = "SshWatchdog";
 
     public static readonly TimeSpan ProbeInterval = TimeSpan.FromSeconds(5);
-    public static readonly TimeSpan ProbeTimeout = TimeSpan.FromSeconds(5);
+    public static readonly TimeSpan ProbeTimeout = TimeSpan.FromSeconds(8);
 
     private readonly Config _config = config;
     private readonly Func<Task> _reload = reload;
@@ -97,8 +97,8 @@ public enum SshWatchdogAction
 /// </summary>
 public class SshWatchdogState
 {
-    public const int FailuresBeforeReconnect = 2;
-    public static readonly TimeSpan MinReconnectGap = TimeSpan.FromSeconds(10);
+    public const int FailuresBeforeReconnect = 3;
+    public static readonly TimeSpan MinReconnectGap = TimeSpan.FromSeconds(30);
 
     private int _failures;
     private DateTime _lastReconnect = DateTime.MinValue;
@@ -123,7 +123,7 @@ public class SshWatchdogState
             return SshWatchdogAction.None;
         }
 
-        // keep reconnecting every couple of failed probes while the freeze lasts
+        // a reload drops every open connection, so retry slowly while a freeze lasts
         _failures = 0;
         _lastReconnect = now;
         _reconnecting = true;
